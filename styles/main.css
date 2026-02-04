@@ -1,0 +1,978 @@
+/* ============================================
+   일본 겨울 온천·스키 여행 가이드 - Magazine Style Design
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Sans+KR:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
+:root {
+  /* Colors - Bright Magazine Theme */
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f8fafc;
+  --color-bg-tertiary: #f1f5f9;
+  --color-card-bg: #ffffff;
+  --color-card-bg-hover: #fefefe;
+  
+  /* Accent Colors - Warm & Elegant */
+  --color-onsen: #e85d04;
+  --color-onsen-light: #f48c06;
+  --color-onsen-soft: #fff4ed;
+  --color-ski: #0077b6;
+  --color-ski-light: #0096c7;
+  --color-ski-soft: #e8f4f8;
+  --color-snow: #caf0f8;
+  
+  /* Category Colors */
+  --color-hotel: #7c3aed;
+  --color-hotel-soft: #f3f0ff;
+  --color-restaurant: #dc2626;
+  --color-restaurant-soft: #fef2f2;
+  --color-cafe: #ca8a04;
+  --color-cafe-soft: #fefce8;
+  --color-shopping: #db2777;
+  --color-shopping-soft: #fdf2f8;
+  --color-transport: #4f46e5;
+  --color-transport-soft: #eef2ff;
+  
+  /* Text Colors */
+  --color-text-primary: #1e293b;
+  --color-text-secondary: #475569;
+  --color-text-muted: #94a3b8;
+  --color-text-accent: #e85d04;
+  
+  /* Border & Surface */
+  --color-border: #e2e8f0;
+  --color-border-hover: #cbd5e1;
+  --color-divider: #f1f5f9;
+  
+  /* Shadows - Soft & Elegant */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.08);
+  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.1);
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.04);
+  --shadow-card-hover: 0 8px 30px rgba(0,0,0,0.08);
+  
+  /* Typography */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-heading: 'Outfit', sans-serif;
+  --font-body: 'Noto Sans KR', 'Noto Sans JP', sans-serif;
+  
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  
+  /* Border Radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-full: 9999px;
+  
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  
+  --container-max: 900px;
+  --container-padding: var(--space-6);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  line-height: 1.7;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+ul, ol { list-style: none; }
+img { max-width: 100%; height: auto; display: block; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
+/* ============================================
+   Magazine Header - Editorial Style
+   ============================================ */
+.header {
+  padding: var(--space-16) 0 var(--space-12);
+  text-align: center;
+  background: linear-gradient(180deg, var(--color-onsen-soft) 0%, var(--color-bg-primary) 100%);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.header__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-5);
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-6);
+  box-shadow: var(--shadow-sm);
+}
+
+.header__title {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-4);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.header__title-accent {
+  color: var(--color-onsen);
+  font-style: italic;
+}
+
+.header__subtitle {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-8);
+}
+
+.header__info {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-3);
+}
+
+.info-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  transition: var(--transition-base);
+  box-shadow: var(--shadow-sm);
+}
+
+.info-chip:hover {
+  border-color: var(--color-onsen);
+  box-shadow: var(--shadow-md);
+}
+
+/* ============================================
+   Route Timeline - Elegant Flow
+   ============================================ */
+/* ============================================
+   Header Navigation
+   ============================================ */
+.header__nav {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.header__nav-link {
+  display: inline-block;
+  padding: var(--space-2) var(--space-4);
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: var(--transition-base);
+  backdrop-filter: blur(4px);
+}
+
+.header__nav-link:hover {
+  background: white;
+  color: var(--color-text-primary);
+  border-color: var(--color-border-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.header__nav-link.active {
+  background: var(--color-text-primary);
+  color: white;
+  border-color: var(--color-text-primary);
+  font-weight: 700;
+  box-shadow: var(--shadow-md);
+}
+
+.route-section {
+  padding: var(--space-10) 0;
+  background: var(--color-bg-secondary);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.route-timeline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.route-point {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: var(--transition-base);
+  box-shadow: var(--shadow-sm);
+}
+
+.route-point--onsen {
+  border-color: var(--color-onsen);
+  background: var(--color-onsen-soft);
+  color: var(--color-onsen);
+}
+
+.route-point--ski {
+  border-color: var(--color-ski);
+  background: var(--color-ski-soft);
+  color: var(--color-ski);
+}
+
+.route-point--start, .route-point--end {
+  border-color: var(--color-transport);
+  background: var(--color-transport-soft);
+  color: var(--color-transport);
+}
+
+.route-point--sightseeing {
+  border-color: #059669;
+  background: #ecfdf5;
+  color: #059669;
+}
+
+.route-arrow {
+  color: var(--color-text-muted);
+  font-size: 1rem;
+}
+
+/* ============================================
+   Day Navigation - Clean Tabs
+   ============================================ */
+.day-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-4) 0;
+}
+
+.day-nav__list {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+.day-nav__btn {
+  padding: var(--space-3) var(--space-6);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-lg);
+  color: var(--color-text-secondary);
+  font-weight: 600;
+  font-size: 0.875rem;
+  transition: var(--transition-base);
+}
+
+.day-nav__btn:hover {
+  background: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+}
+
+.day-nav__btn.active {
+  background: var(--color-text-primary);
+  color: white;
+  box-shadow: var(--shadow-md);
+}
+
+/* ============================================
+   Day Section - Magazine Layout
+   ============================================ */
+.day-section {
+  padding: var(--space-16) 0;
+  scroll-margin-top: 80px;
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.day-header {
+  text-align: center;
+  margin-bottom: var(--space-12);
+  padding-bottom: var(--space-8);
+  border-bottom: 2px solid var(--color-border);
+}
+
+.day-header__number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  background: var(--color-text-primary);
+  border-radius: var(--radius-full);
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: var(--space-4);
+}
+
+.day-header__date {
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: var(--space-3);
+}
+
+.day-header__theme {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+/* ============================================
+   Schedule Card - Clean & Elegant
+   ============================================ */
+.schedule-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.schedule-card {
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  transition: var(--transition-base);
+  box-shadow: var(--shadow-card);
+}
+
+.schedule-card:hover {
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-2px);
+}
+
+.schedule-card__main {
+  padding: var(--space-6);
+}
+
+.schedule-card__header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-5);
+}
+
+.schedule-card__time {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 80px;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-lg);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  text-align: center;
+}
+
+.schedule-card__time-icon {
+  font-size: 1.25rem;
+  margin-bottom: var(--space-1);
+}
+
+.schedule-card__info { flex: 1; }
+
+.schedule-card__place {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+  color: var(--color-text-primary);
+}
+
+.schedule-card__place-icon { font-size: 1.25rem; }
+
+.schedule-card__category {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-bottom: var(--space-3);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.schedule-card__category--hotel { background: var(--color-hotel-soft); color: var(--color-hotel); }
+.schedule-card__category--restaurant { background: var(--color-restaurant-soft); color: var(--color-restaurant); }
+.schedule-card__category--cafe { background: var(--color-cafe-soft); color: var(--color-cafe); }
+.schedule-card__category--onsen { background: var(--color-onsen-soft); color: var(--color-onsen); }
+.schedule-card__category--ski { background: var(--color-ski-soft); color: var(--color-ski); }
+.schedule-card__category--shopping { background: var(--color-shopping-soft); color: var(--color-shopping); }
+.schedule-card__category--transport { background: var(--color-transport-soft); color: var(--color-transport); }
+
+.schedule-card__desc {
+  color: var(--color-text-secondary);
+  line-height: 1.8;
+  margin-bottom: var(--space-4);
+}
+
+.schedule-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: var(--transition-base);
+}
+
+.btn--primary {
+  background: var(--color-text-primary);
+  color: white;
+}
+
+.btn--primary:hover {
+  background: var(--color-onsen);
+  box-shadow: var(--shadow-md);
+}
+
+.btn--secondary {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+}
+
+.btn--secondary:hover {
+  border-color: var(--color-text-primary);
+}
+
+/* ============================================
+   Recommendations - Magazine Style
+   ============================================ */
+.recommendations {
+  margin-top: var(--space-5);
+  padding: var(--space-5);
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-lg);
+  border-left: 4px solid var(--color-onsen);
+}
+
+.recommendations__title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-onsen);
+  margin-bottom: var(--space-3);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.recommendations__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.recommendation-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  background: var(--color-bg-primary);
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.recommendation-item__icon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.recommendation-item__content {
+  flex: 1;
+}
+
+.recommendation-item__name {
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.recommendation-item__desc {
+  color: var(--color-text-secondary);
+  font-size: 0.85rem;
+  margin-top: var(--space-1);
+}
+
+.recommendation-item__price {
+  display: inline-block;
+  margin-top: var(--space-1);
+  padding: var(--space-1) var(--space-2);
+  background: var(--color-onsen-soft);
+  border-radius: var(--radius-sm);
+  color: var(--color-onsen);
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+
+/* ============================================
+   Location Details
+   ============================================ */
+.location-details {
+  margin-top: var(--space-4);
+  padding: var(--space-4);
+  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-lg);
+  font-size: 0.85rem;
+}
+
+.location-details__row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-2) 0;
+}
+
+.location-details__row:not(:last-child) {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.location-details__label {
+  color: var(--color-text-muted);
+  min-width: 60px;
+  font-weight: 500;
+}
+
+.location-details__value {
+  color: var(--color-text-primary);
+}
+
+.location-details__value a {
+  color: var(--color-ski);
+  font-weight: 500;
+}
+
+.location-details__value a:hover {
+  text-decoration: underline;
+}
+
+/* ============================================
+   Alternatives Section - Clean Cards
+   ============================================ */
+.alternatives {
+  background: var(--color-bg-secondary);
+  border-top: 1px solid var(--color-border);
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.4s ease;
+}
+
+.alternatives.open {
+  max-height: 800px;
+}
+
+.alternatives__content {
+  padding: var(--space-6);
+}
+
+.alternatives__title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-bottom: var(--space-4);
+  color: var(--color-ski);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.alternatives__list {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.alt-card {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  transition: var(--transition-base);
+}
+
+.alt-card:hover {
+  border-color: var(--color-ski);
+  box-shadow: var(--shadow-md);
+}
+
+.alt-card__number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: var(--color-ski);
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: white;
+  flex-shrink: 0;
+}
+
+.alt-card__info { flex: 1; }
+
+.alt-card__name {
+  font-weight: 700;
+  margin-bottom: var(--space-1);
+  color: var(--color-text-primary);
+}
+
+.alt-card__desc {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.alt-toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  background: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  width: 100%;
+  justify-content: center;
+  transition: var(--transition-base);
+  border-top: 1px solid var(--color-border);
+}
+
+.alt-toggle:hover {
+  background: var(--color-bg-tertiary);
+  color: var(--color-text-primary);
+}
+
+.alt-toggle__icon {
+  transition: transform var(--transition-base);
+}
+
+.alt-toggle.open .alt-toggle__icon {
+  transform: rotate(180deg);
+}
+
+/* ============================================
+   Tips Section
+   ============================================ */
+.tips-section {
+  padding: var(--space-16) 0;
+  background: var(--color-bg-secondary);
+}
+
+.tips-section__title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: var(--space-10);
+  color: var(--color-text-primary);
+}
+
+.tips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-5);
+}
+
+.tip-card {
+  padding: var(--space-6);
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  text-align: center;
+  transition: var(--transition-base);
+}
+
+.tip-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
+}
+
+.tip-card__icon {
+  font-size: 2.5rem;
+  margin-bottom: var(--space-4);
+}
+
+.tip-card__title {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+  color: var(--color-text-primary);
+}
+
+.tip-card__desc {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+}
+
+/* ============================================
+   Footer
+   ============================================ */
+.footer {
+  padding: var(--space-10) 0;
+  text-align: center;
+  background: var(--color-text-primary);
+  color: white;
+}
+
+.footer__text {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* ============================================
+   Responsive
+   ============================================ */
+@media (max-width: 768px) {
+  :root { --container-padding: var(--space-4); }
+  
+  .header__title { font-size: 2rem; }
+  .header__subtitle { font-size: 1rem; }
+  
+  .route-timeline {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .route-arrow {
+    transform: rotate(90deg);
+    align-self: center;
+  }
+  
+  .route-point { justify-content: center; }
+  
+  .day-nav__list {
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding: 0 var(--space-4);
+  }
+  
+  .day-nav__btn { flex-shrink: 0; }
+  
+  .schedule-card__header {
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+  
+  .schedule-card__time {
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    gap: var(--space-2);
+  }
+  
+  .schedule-card__time-icon { margin-bottom: 0; }
+  
+  .header__info {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .header__title { font-size: 1.75rem; }
+  .day-header__number { width: 48px; height: 48px; font-size: 1.25rem; }
+  .day-header__theme { font-size: 1.5rem; }
+  .schedule-card__place { font-size: 1.1rem; }
+}
+
+/* ============================================
+   Schedule Card Image
+   ============================================ */
+.schedule-card__image {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.schedule-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.schedule-card:hover .schedule-card__image img {
+  transform: scale(1.05);
+}
+
+/* Recommendation Link */
+.recommendation-item__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.recommendation-item__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-2);
+  background: var(--color-ski-soft);
+  border-radius: var(--radius-sm);
+  color: var(--color-ski);
+  font-size: 0.75rem;
+  font-weight: 600;
+  transition: var(--transition-base);
+  white-space: nowrap;
+}
+
+.recommendation-item__link:hover {
+  background: var(--color-ski);
+  color: white;
+}
+
+/* ============================================
+   Transport Badge
+   ============================================ */
+.schedule-card__transport {
+  margin: var(--space-2) 0;
+}
+
+.transport-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.transport-badge--car {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: white;
+}
+
+.transport-badge--walk {
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  color: white;
+}
+
+.transport-badge--shuttle {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: white;
+}
+
+.transport-badge__icon {
+  font-size: 1.1rem;
+}
+
+.transport-badge__method {
+  font-weight: 700;
+}
+
+.transport-badge__duration {
+  background: rgba(255, 255, 255, 0.25);
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.schedule-card { animation: fadeIn 0.5s ease forwards; }
+.schedule-card:nth-child(1) { animation-delay: 0.05s; }
+.schedule-card:nth-child(2) { animation-delay: 0.1s; }
+.schedule-card:nth-child(3) { animation-delay: 0.15s; }
+.schedule-card:nth-child(4) { animation-delay: 0.2s; }
+.schedule-card:nth-child(5) { animation-delay: 0.25s; }
+.schedule-card:nth-child(6) { animation-delay: 0.3s; }
+.schedule-card:nth-child(7) { animation-delay: 0.35s; }
+.schedule-card:nth-child(8) { animation-delay: 0.4s; }
