@@ -1,625 +1,989 @@
-// 여행 일정 데이터 - Ver.3 (호텔 온천, 석식 상세, 마지막날 점심 추가)
+// 도야 코한테이 3박 4일 여행 데이터 v3 - 완전판
+// 목표: 여행 중 추가 검색 없이 이 데이터만으로 완벽한 여행 가이드
+
 const travelData = {
+  // ========== 여행 기본 정보 ==========
+  tripInfo: {
+    title: "도야 코한테이 & 시코츠호 3박 4일",
+    dates: "2026.02.07(토) ~ 02.10(화)",
+    flightInfo: {
+      arrival: "CTS 11:15 도착",
+      departure: "CTS 17:45 출발"
+    },
+    accommodation: {
+      name: "도야 코한테이 (洞爺 湖畔亭)",
+      nameJp: "洞爺湖畔亭",
+      address: "〒049-5721 北海道虻田郡洞爺湖町洞爺湖温泉7-8",
+      addressKr: "홋카이도 아부타군 도야호초 도야코온센 7-8",
+      phone: "0142-75-2211",
+      phonePlus: "+81-142-75-2144",
+      mapCode: "321 519 271*66",
+      checkIn: "15:00",
+      checkOut: "10:00",
+      parking: "무료 (100대)",
+      onsen: {
+        hours: "6:00~24:00 (대욕장)",
+        rooftop: "6:00~22:00 (옥상 노천탕)",
+        features: ["도야호 전망 노천탕", "사우나", "자쿠지", "옥상 노천탕"]
+      },
+      mapsUrl: "https://maps.google.com/?q=洞爺湖畔亭"
+    },
+    rentalCar: {
+      company: "TOYOTA렌터카 신치토세공항점",
+      phone: "0123-45-8100",
+      pickupLocation: "신치토세공항 1층 도착로비 → 무료셔틀버스 5분",
+      returnLocation: "동일 (만땅 주유 후 반납)",
+      mapCode: "113 846 573*17",
+      estimated: "3박4일 ¥30,000~50,000"
+    },
+    budget: {
+      total: "1인당 약 15~20만엔",
+      breakdown: {
+        accommodation: "¥60,000~105,000 (3박 1박2식)",
+        rentalCar: "¥30,000~50,000",
+        gasoline: "¥8,000~12,000",
+        skiRental: "¥8,000~10,000",
+        activities: "¥3,000~5,000",
+        snacks: "¥5,000~10,000"
+      }
+    },
+    emergency: {
+      police: "110",
+      fire: "119",
+      consulateKR: "+81-11-218-0288",
+      consulateKRNote: "삿포로 대한민국 총영사관",
+      jaf: "#8139",
+      jafNote: "일본자동차연맹 긴급지원",
+      toyaOnsenAssoc: "0142-75-2446",
+      noboribetsuAssoc: "0143-84-3311"
+    }
+  },
+
+  // ========== 날씨 & 복장 가이드 ==========
+  weatherInfo: {
+    temperature: "-5°C ~ 2°C (낮 최고)",
+    feelsLike: "바람 때문에 체감온도 더 낮음",
+    sunset: "17:00 전후",
+    snowProbability: "수시로 눈 가능성 높음",
+    clothing: {
+      outer: ["다운 패딩 (방수/방풍)", "스키 재킷 (스키날 필수)"],
+      top: ["히트텍 이너", "플리스 또는 니트"],
+      bottom: ["기모 바지", "스키 팬츠"],
+      accessories: ["방한 장갑", "목도리/넥워머", "비니/귀마개", "선글라스 (눈 반사)"],
+      footwear: ["방한 부츠 (미끄럼 방지)", "스키 부츠 (렌탈)"]
+    }
+  },
+
+  // ========== 준비물 체크리스트 ==========
+  packingList: [
+    { item: "여권 & 항공권", category: "필수", checked: false },
+    { item: "국제면허증", category: "필수", checked: false },
+    { item: "신용카드 & 현금 (엔화)", category: "필수", checked: false },
+    { item: "해외여행 보험", category: "필수", checked: false },
+    { item: "휴대폰 충전기", category: "전자기기", checked: false },
+    { item: "보조배터리", category: "전자기기", checked: false },
+    { item: "카메라", category: "전자기기", checked: false },
+    { item: "빈 페트병 (샘물용)", category: "기타", checked: false },
+    { item: "선크림 (눈 반사용)", category: "기타", checked: false },
+    { item: "상비약", category: "기타", checked: false },
+    { item: "수영복 (온천 혼욕탕용)", category: "온천", checked: false },
+    { item: "소형 타올", category: "온천", checked: false }
+  ],
+
+  // ========== DAY 1: 도착 & 도야호 ==========
   day1: [
     {
       time: "11:15",
       place: "신치토세 공항 도착",
       icon: "✈️",
       category: "transport",
-      categoryLabel: "이동",
-      desc: "CTS 11:15 도착. 입국 심사 후 수하물 수령, 렌터카 카운터로 이동",
-      mapsUrl: "https://maps.google.com/?q=New+Chitose+Airport"
+      categoryLabel: "도착",
+      desc: "CTS 11:15 도착. 입국심사(30~40분), 수하물 수령 후 1층 도착로비로 이동.",
+      location: {
+        address: "New Chitose Airport, Hokkaido",
+        mapCode: "113 846 573*17"
+      },
+      mapsUrl: "https://maps.google.com/?q=New+Chitose+Airport",
+      tips: [
+        "입국심사 30~40분 소요 예상",
+        "수하물 찾은 후 1층 도착로비로 이동",
+        "공항 내 점심 가능 (라멘, 스시 등)"
+      ]
     },
     {
-      time: "11:30 - 12:30",
+      time: "12:00 - 12:30",
       place: "공항 점심식사",
       icon: "🍜",
       category: "restaurant",
       categoryLabel: "식사",
-      desc: "국내선 터미널 3층 'Gourmet World'에서 홋카이도 대표 음식으로 첫 끼니. 렌터카 픽업 전 든든하게 배를 채우세요.",
-      image: "images/hokkaido_ramen_1770163813335.png",
+      desc: "국내선 터미널 3층 라멘 도코로에서 홋카이도 라멘으로 배 채우기!",
       recommendations: [
-        { 
-          icon: "🍜", 
-          name: "이치겐 에비소바 (一幻 えびそば)", 
-          desc: "홋카이도 5대 라멘 중 하나! 진한 새우 육수가 시그니처. 오리지널 새우 육수 또는 돈코츠 블렌드 선택 가능. 굵은면과 가는면 중 선택할 수 있어요.", 
-          price: "¥950~1,200",
-          mapsUrl: "https://maps.google.com/?q=一幻+新千歳空港"
-        },
-        { 
-          icon: "🍣", 
-          name: "그루메 회전초밥 칸타로 (函太郎)", 
-          desc: "하코다테 직송 신선한 해산물을 저렴하게 즐기는 회전초밥. 줄이 길지만 그만큼 가치 있는 맛. 성게, 연어, 이쿠라 강추!", 
-          price: "¥1,500~3,000",
-          mapsUrl: "https://maps.google.com/?q=函太郎+新千歳空港"
-        },
-        { 
-          icon: "🦀", 
-          name: "키쿠요 쇼쿠도 (きくよ食堂)", 
-          desc: "하코다테 아침시장 본점의 공항 분점. 성게, 연어알, 게살이 듬뿍 올라간 호화로운 카이센동(해산물덮밥)이 시그니처.", 
-          price: "¥1,800~2,500",
-          mapsUrl: "https://maps.google.com/?q=きくよ食堂+新千歳空港"
-        }
+        { icon: "🍜", name: "라멘 도코로", desc: "미소라멘, 쇼유라멘 등 다양한 홋카이도 라멘", price: "¥900~1,200" },
+        { icon: "🍣", name: "스시 처", desc: "신선한 해산물 스시, 덮밥", price: "¥1,000~1,500" }
       ],
-      alternatives: [
-        { name: "홋카이도 라멘도장", desc: "국내선 3층 라멘 골목. 삿포로, 아사히카와, 하코다테 등 홋카이도 각지의 유명 라멘집 8곳 입점" },
-        { name: "시마노히토", desc: "럭셔리 해산물 덮밥 전문. 성게덮밥, 이쿠라덮밥 등 고급 메뉴" },
-        { name: "편의점 도시락", desc: "시간이 촉박하면 세이코마트에서 홋카이도 한정 도시락 구매 후 차에서 식사" }
+      tips: ["도야까지 1시간 30분이니 든든히 먹기"]
+    },
+    {
+      time: "12:30 - 13:00",
+      place: "TOYOTA렌터카 픽업",
+      icon: "🚗",
+      category: "transport",
+      categoryLabel: "렌터카",
+      desc: "셔틀버스로 렌터카 영업소 이동 (5분). 차량 인수 시 스터드리스 타이어 확인 필수!",
+      location: {
+        address: "신치토세공항 인근 TOYOTA렌터카",
+        phone: "0123-45-8100",
+        mapCode: "113 846 573*17"
+      },
+      mapsUrl: "https://maps.google.com/?q=Toyota+Rent+a+Car+New+Chitose",
+      tips: [
+        "예약 확인서 & 국제면허증 지참",
+        "스터드리스 타이어 장착 여부 확인",
+        "네비에 MapCode 입력법 숙지"
       ]
     },
     {
-      time: "12:30 - 13:30",
-      place: "Budget 렌터카",
+      time: "13:00 - 14:45",
+      place: "도야호 이동",
       icon: "🚗",
       category: "transport",
       categoryLabel: "이동",
-      desc: "도착구 3번 게이트 인근 카운터 방문 → 픽업 진행. 보험 옵션 및 네비게이션 사용법 확인",
-      location: { address: "758-206 Bibi, Chitose, Hokkaido" },
-      mapsUrl: "https://maps.google.com/?q=Budget+Rent+a+Car+New+Chitose"
-    },
-    {
-      time: "13:30 - 14:30",
-      place: "조잔케이 이동",
-      icon: "🚗",
-      category: "transport",
-      categoryLabel: "이동",
-      transport: { method: "car", duration: "약 1시간" },
-      desc: "신치토세 공항 → 조잔케이 온천. 국도 230호선 경유, 점점 눈 덮인 산길 풍경이 펼쳐짐"
-    },
-    {
-      time: "14:30 - 15:00",
-      place: "조잔케이 뷰 호텔",
-      icon: "🏨",
-      category: "hotel",
-      categoryLabel: "숙소",
-      transport: { method: "car", duration: "도착" },
-      desc: "호텔 도착 및 체크인 (14:00부터 가능). 짐 정리 후 가벼운 복장으로 온천마을 산책 준비",
-      location: { address: "2-111 Jozankei Onsen Higashi, Minami-ku, Sapporo", hours: "체크인 14:00 / 체크아웃 10:00" },
-      mapsUrl: "https://maps.google.com/?q=Jozankei+View+Hotel"
-    },
-    {
-      time: "15:00 - 17:00",
-      place: "상점가 & 카페 투어",
-      icon: "☕",
-      category: "cafe",
-      categoryLabel: "카페",
-      transport: { method: "walk", duration: "도보 5분" },
-      desc: "호텔에서 온천거리까지 도보 이동. 조잔케이 온천거리의 아기자기한 카페와 베이커리 탐방. 눈 덮인 거리를 걸으며 따뜻한 음료와 함께 겨울 정취를 만끽하세요.",
-      image: "images/jozankei_cafe_1770163828676.png",
+      transport: { method: "car", duration: "약 1시간 45분" },
+      desc: "신치토세공항 → 도오 자동차도 → 아부타 도야코IC → 국도 230호선 → 도야코온센",
+      location: {
+        mapCode: "321 519 271*66",
+        distance: "약 95km"
+      },
       recommendations: [
-        { 
-          icon: "☕", 
-          name: "tocchan café (とっちゃんカフェ)", 
-          desc: "2020년 오픈. 전 일본 국가대표 프로 스노보더가 운영하는 감성 카페. 부부가 직접 원두를 로스팅하며, 고양이와 자전거를 좋아하는 부부의 취향이 인테리어 곳곳에 묻어남. 따뜻한 분위기에서 수제 디저트와 핸드드립 커피를 즐길 수 있어요.", 
-          price: "커피 ¥500~",
-          mapsUrl: "https://maps.google.com/?q=tocchan+cafe+jozankei"
-        },
-        { 
-          icon: "🥐", 
-          name: "Exclamation Bakery (エクスクラメーションベーカリー)", 
-          desc: "2021년 오픈. 원시림에 둘러싸인 프리미엄 베이커리. 마가린·쇼트닝 無첨가, 빵 장인과 일식·양식 요리사 협업으로 약 30종류의 개성 있는 빵 제공. 족욕 공간 완비! 런치 빵 코스(칼피스 버터 빵, 새우 빵, 100% 소고기 미트 빵 등) 인기.", 
-          price: "빵 ¥300~600",
-          mapsUrl: "https://maps.google.com/?q=Exclamation+Bakery+jozankei"
-        },
-        { 
-          icon: "🍡", 
-          name: "조잔케이 온천 만쥬", 
-          desc: "조잔케이 명물! 온천거리 곳곳에서 판매하는 갓 찐 따끈한 온천 만쥬. 달콤한 팥앙금이 가득, 추운 날 간식으로 최고.", 
-          price: "¥150~" 
-        }
+        { icon: "🚽", name: "키무라PA (Kimura PA)", desc: "중간 휴게소. 화장실 & 간단 휴식" }
       ],
-      alternatives: [
-        { name: "아메노히토 유키노히 (雨ノ日と雪ノ日)", desc: "Exclamation Bakery 대각선 맞은편 위치. '비오는 날과 눈오는 날'이라는 뜻의 감성 카페. 창밖 눈 풍경을 바라보며 디저트 즐기기" },
-        { name: "조잔케이 팜", desc: "현지 농산물로 만든 젤라또와 스무디 전문. 겨울에도 인기! 홋카이도 우유 맛이 진함" },
-        { name: "온천 호빵 가게", desc: "겨울 한정! 온천수로 찐 호빵. 팥, 고기, 피자 맛 3종류. 손난로 대용으로도 딱" }
+      tips: [
+        "도오자동차도 유료 (ETC 카드 사용 가능)",
+        "터널 출입구 빙판 주의",
+        "네비에 MapCode: 321 519 271*66 입력"
       ]
     },
     {
-      time: "17:15 - 19:30",
-      place: "호헤이쿄 온천",
-      icon: "♨️",
-      category: "onsen",
-      categoryLabel: "온천",
-      transport: { method: "car", duration: "약 20분" },
-      desc: "호텔에서 렌터카로 이동. 설경을 바라보며 즐기는 노천탕 체험. 홋카이도 최고의 온천 중 하나로 손꼽히는 명소. 해질녘~저녁 시간대가 가장 아름다워요.",
-      location: { address: "608-2 Jozankei, Minami Ward, Sapporo", hours: "10:00 ~ 22:30 (마감 21:45)" },
-      recommendations: [
-        { 
-          icon: "🍛", 
-          name: "ONsen Shokudo 인도 커리", 
-          desc: "온천 내 식당의 전설적인 시그니처 메뉴! '일본에서 가장 맛있는 인도 커리'라는 별명. 정통 인도인 셰프가 만드는 본격 커리. 난과 함께 주문 필수. 온천 후 석식으로 완벽.", 
-          price: "¥1,200~1,500" 
-        },
-        { icon: "🧖", name: "설경 노천탕", desc: "눈 덮인 산을 바라보며 즐기는 노천탕. 100% 원천 방류식 온천수. 해질녘 핑크빛 하늘과 눈의 조화가 환상적" }
-      ],
-      mapsUrl: "https://maps.google.com/?q=Hoheikyo+Onsen"
-    },
-    {
-      time: "20:00 - 22:00",
-      place: "호텔 복귀 & 휴식",
+      time: "15:00",
+      place: "도야 코한테이 체크인",
       icon: "🏨",
       category: "hotel",
       categoryLabel: "숙소",
-      transport: { method: "car", duration: "약 20분" },
-      desc: "호헤이쿄 온천에서 호텔로 렌터카 복귀. 호텔 내 온천에서 하루의 피로를 풀고 편안한 휴식. 호텔 온천도 수질이 좋으니 꼭 이용하세요."
-    }
-  ],
-  day2: [
-    {
-      time: "06:30 - 07:30",
-      place: "호텔 온천",
-      icon: "♨️",
-      category: "onsen",
-      categoryLabel: "온천",
-      transport: { method: "walk", duration: "호텔 내" },
-      desc: "이른 아침 호텔 대욕장에서 상쾌한 온천욕. 아침 햇살을 받으며 노천탕을 즐기면 하루가 개운하게 시작됩니다. 조식 전 1시간 여유롭게!"
-    },
-    {
-      time: "07:30 - 08:30",
-      place: "조식",
-      icon: "🍳",
-      category: "restaurant",
-      categoryLabel: "식사",
-      transport: { method: "walk", duration: "호텔 내" },
-      desc: "호텔 뷔페 조식. 홋카이도 신선한 해산물과 현지 식재료로 만든 요리를 마음껏 즐기세요.",
-      recommendations: [
-        { icon: "🥛", name: "홋카이도 우유", desc: "신선한 홋카이도 우유는 필수! 진하고 고소한 맛이 다릅니다" },
-        { icon: "🍣", name: "해산물 코너", desc: "연어, 이쿠라(연어알), 게살 등 신선한 해산물. 아침부터 호화롭게!" },
-        { icon: "🍚", name: "일본식 조식 세트", desc: "된장국, 생선구이, 낫토, 절임류 등 전통 일식 조식" }
+      desc: "도착! 3박 연박이므로 짐을 편하게 풀고 시설 둘러보기. 조금 일찍 도착해도 짐 보관 가능.",
+      location: {
+        address: "홋카이도 아부타군 도야호초 도야코온센 7-8",
+        addressJp: "〒049-5721 北海道虻田郡洞爺湖町洞爺湖温泉7-8",
+        phone: "0142-75-2211",
+        mapCode: "321 519 271*66",
+        hours: "체크인 15:00 / 체크아웃 10:00",
+        parking: "무료 (100대)"
+      },
+      mapsUrl: "https://maps.google.com/?q=洞爺湖畔亭",
+      tips: [
+        "프론트에서 온천 이용 시간 확인",
+        "저녁 식사 시간 확인 (보통 18:00~20:00)",
+        "불꽃놀이 시간 확인 (20:30)"
       ]
     },
     {
-      time: "08:30 - 10:00",
-      place: "체크아웃 준비",
-      icon: "🧳",
-      category: "hotel",
-      categoryLabel: "숙소",
-      transport: { method: "walk", duration: "호텔 내" },
-      desc: "짐 정리 및 10:00 체크아웃. 남은 온천거리 산책도 좋아요"
-    },
-    {
-      time: "10:00 - 12:30",
-      place: "노보리베츠 이동",
-      icon: "🚗",
-      category: "transport",
-      categoryLabel: "이동",
-      transport: { method: "car", duration: "약 2시간 30분" },
-      desc: "조잔케이 → 노보리베츠 이동. 중간에 휴게소에서 잠시 휴식하며 홋카이도 겨울 풍경 감상"
-    },
-    {
-      time: "12:30 - 13:30",
-      place: "점심식사",
-      icon: "🍜",
-      category: "restaurant",
-      categoryLabel: "식사",
-      transport: { method: "walk", duration: "도보 5분" },
-      desc: "레스토랑까지 도보 이동. 노보리베츠 온천마을 도착 후 점심. 온천거리에는 유명 맛집들이 밀집해 있어요.",
-      recommendations: [
-        { 
-          icon: "🦀", 
-          name: "온천시장 (温泉市場)", 
-          desc: "노보리베츠 대표 해산물 식당! 카이센동(해산물덮밥), 가리비구이, 털게 등 신선한 해산물이 주메뉴. 규동 등 저렴한 메뉴도 있어 부담 없이 방문 가능. 점심은 물론 저녁에 술과 함께 즐기기도 좋아요.", 
-          price: "¥1,500~3,000",
-          mapsUrl: "https://maps.google.com/?q=温泉市場+登別温泉"
-        },
-        { 
-          icon: "🍜", 
-          name: "아지노다이오 (味の大王)", 
-          desc: "노보리베츠 명물 '지옥라멘' 원조! 지옥계곡 테마에 맞는 자극적인 매운맛 라멘으로 유명. 매운 음식 좋아하면 도전 추천. 빨간 육수가 인상적.", 
-          price: "¥900~1,200",
-          mapsUrl: "https://maps.google.com/?q=味の大王+登別温泉"
-        },
-        { 
-          icon: "🍮", 
-          name: "도산코 푸린 (Dosanko Purin)", 
-          desc: "노보리베츠 온천 최초 푸딩 전문점! 우유·달걀·생크림·설탕만으로 황금비율 수제 푸딩. '옛날 푸딩' 추천. 스프 카레도 유명해요.", 
-          price: "푸딩 ¥400~",
-          mapsUrl: "https://maps.google.com/?q=Dosanko+Purin+Noboribetsu"
-        },
-        { 
-          icon: "🍣", 
-          name: "스시처 노보리베츠 (寿司処 登別)", 
-          desc: "노보리베츠 온천마을의 정통 스시집! 홋카이도 근해에서 잡은 신선한 생선으로 만든 니기리 스시가 일품. 점심 세트 메뉴가 가성비 좋아요. 카운터석에서 장인의 손놀림 감상 가능.", 
-          price: "런치세트 ¥1,500~2,500",
-          mapsUrl: "https://maps.google.com/?q=寿司処+登別温泉"
-        }
-      ],
-      alternatives: [
-        { name: "소바도코로 후쿠안 (そば処 福庵)", desc: "노보리베츠 소바 맛집. 텐동(튀김덮밥)도 인기. 깔끔한 인테리어로 가족 방문 적합. 11:30~14:00만 영업하니 서두르세요!" },
-        { name: "밀키하우스 낙농관", desc: "지옥계곡 주변 카페. 현지 우유로 만든 아이스크림이 유명. 소프트크림 필수" },
-        { name: "호텔 레스토랑", desc: "체크인 전이라도 호텔 레스토랑 이용 가능. 편하게 식사하고 싶다면 추천" }
-      ]
-    },
-    {
-      time: "14:00 - 17:00",
-      place: "다이이치 타키모토칸",
-      icon: "🏨",
-      category: "hotel",
-      categoryLabel: "숙소",
-      transport: { method: "walk", duration: "도보 3분" },
-      desc: "식당에서 호텔까지 도보 이동. 체크인(14:00~) 후 일본 최대급 온천 시설 체험! 35개의 다양한 탕에서 유황천, 철천, 망초천 등 7종류 온천수를 경험하세요.",
-      image: "images/noboribetsu_onsen_1770163846089.png",
-      location: { address: "55 Noboribetsuonsencho, Noboribetsu", hours: "체크인 14:00 / 체크아웃 10:00" },
-      recommendations: [
-        { icon: "♨️", name: "대욕장 35개 탕", desc: "일본 최대급! 유황천, 철천, 망초천 등 7종류 온천수를 35개 탕에서 체험" },
-        { icon: "👹", name: "지옥계곡 산책", desc: "호텔에서 도보 5분. 유황 연기가 피어오르는 지옥계곡 탐방" }
-      ],
-      mapsUrl: "https://maps.google.com/?q=Dai-ichi+Takimotokan"
-    },
-    {
-      time: "17:00 - 18:00",
-      place: "온천마을 쇼핑",
+      time: "15:00 - 18:00",
+      place: "온천가 산책 & 소품샵 투어",
       icon: "🛍️",
       category: "shopping",
       categoryLabel: "쇼핑",
-      transport: { method: "walk", duration: "도보 5분" },
-      desc: "호텔에서 도보 이동. 노보리베츠 온천거리 산책 및 기념품 쇼핑. 지옥계곡 테마의 오니(도깨비) 상품이 인기!",
+      transport: { method: "walk", duration: "도보 3~10분" },
+      desc: "체크인 후 도야호 온천가를 천천히 산책. 감성 소품샵과 카페를 둘러보기.",
       recommendations: [
         { 
-          icon: "🎎", 
-          name: "다이코쿠야 민예점 (大黒屋民芸店)", 
-          desc: "노보리베츠 전통 공예품과 기념품 전문점. 오니(도깨비) 인형, 목각 인형, 일본 전통 소품 등. 손글씨 그림엽서와 수제 도자기도 인기. 40년 이상 운영된 노포.", 
-          price: "소품 ¥500~",
-          mapsUrl: "https://maps.google.com/?q=大黒屋民芸店+登別"
+          icon: "🛍️", 
+          name: "HOLIDAY MARKET TOYA", 
+          desc: "온천 마을의 로컬 셀렉트 잡화점. 텍스타일, 문구, 생활소품, 오리지널 굿즈. '뻔한 기념품' 대신 '실제로 쓰는 물건'이 많음!",
+          mapsUrl: "https://maps.google.com/?q=HOLIDAY+MARKET+TOYA"
         },
         { 
-          icon: "🍠", 
-          name: "와카사이모 본점 (わかさいも本舗)", 
-          desc: "노보리베츠 대표 과자! 고구마 모양의 달콤한 만쥬 '와카사이모'. 겉은 바삭, 속은 촉촉한 식감. 홋카이도 대표 선물용 과자로 공항에서도 인기지만 본점에서 갓 구운 것이 최고!", 
-          price: "6개입 ¥800~",
-          mapsUrl: "https://maps.google.com/?q=わかさいも本舗+登別"
+          icon: "🧵", 
+          name: "테즈쿠리 하우스 아이비 (手作りハウス あいびぃ)",
+          desc: "핸드메이드 소품샵. 아기자기한 기념품 가득.",
+          mapsUrl: "https://maps.google.com/?q=手作りハウス+あいびぃ"
         },
-        { icon: "👹", name: "오니 기념품", desc: "지옥계곡의 상징 오니(도깨비) 캐릭터 상품. 열쇠고리, 인형, 과자, 티셔츠 등 다양" }
+        {
+          icon: "🍰",
+          name: "와카사이모 본포 (わかさいも本舗)",
+          desc: "도야 명물 '와카사이모' 과자. 도보 3분 거리 본점.",
+          mapsUrl: "https://maps.google.com/?q=わかさいも本舗+洞爺湖"
+        },
+        {
+          icon: "☕",
+          name: "Toya Arts & Crafts",
+          desc: "공예품과 커피/맥주를 함께 즐기는 복합 공간. 따뜻한 음료 한잔하기 좋음."
+        }
       ],
-      alternatives: [
-        { name: "Yunomachi Gift Shop", desc: "호텔 내 기념품샵. 노보리베츠 한정 상품과 과자류. 늦은 시간에도 이용 가능" },
-        { name: "염라대왕당 (閻魔堂)", desc: "지옥계곡 입구의 명소 겸 기념품샵. 무서운 염라대왕상 포토존과 오니 상품 다수" },
-        { name: "편의점 쇼핑", desc: "세이코마트에서 홋카이도 한정 과자와 음료 구매. 가성비 좋은 선물" }
+      tips: [
+        "영업시간이 17:00~18:00에 끝나는 곳이 많으니 서두르기",
+        "HOLIDAY MARKET은 Day 1에 들르는 게 가장 좋음"
       ]
     },
     {
       time: "18:00 - 19:30",
-      place: "석식",
+      place: "호텔 석식",
       icon: "🍽️",
       category: "restaurant",
       categoryLabel: "식사",
-      transport: { method: "walk", duration: "도보 5분" },
-      desc: "호텔에서 도보 이동. 노보리베츠 온천마을에서 홋카이도 해산물과 현지 요리로 저녁 식사. 이자카야 분위기로 술 한잔도 좋아요!",
+      transport: { method: "walk", duration: "호텔 내" },
+      desc: "호텔 뷔페 또는 회석 코스. 홋카이도 해산물, 와규, 신선한 야채를 마음껏!",
       recommendations: [
-        { 
-          icon: "🍶", 
-          name: "이세쿠라 (Isekura / 伊勢鞠)", 
-          desc: "노보리베츠에서 가장 분위기 좋은 이자카야! 현지인과 관광객 모두에게 사랑받는 곳. 신선한 사시미, 꼬치구이, 해산물 요리와 함께 일본 사케를 즐길 수 있어요. 아늑한 일본식 인테리어가 매력적.", 
-          price: "¥2,500~4,000",
-          mapsUrl: "https://maps.google.com/?q=伊勢鞠+登別温泉"
-        },
-        { 
-          icon: "🍜", 
-          name: "이자카야 라멘 치바 (Izakaya Ramen Chiba)", 
-          desc: "라멘과 이자카야의 완벽한 조합! 꼬치구이, 교자, 에다마메 등 안주류와 시원한 생맥주를 즐기다가 마무리로 라멘 한 그릇. 현지 분위기 물씬.", 
-          price: "¥1,500~3,000",
-          mapsUrl: "https://maps.google.com/?q=ラーメンちば+登別温泉"
-        },
-        { 
-          icon: "🍜", 
-          name: "엔마켄 (Enmaken / 閻魔軒)", 
-          desc: "지옥계곡 테마의 '엔마 라멘'이 시그니처! 매운맛과 순한맛 선택 가능. 독특한 인테리어와 함께 노보리베츠만의 라멘 경험. 저녁에도 영업해서 편하게 방문 가능.", 
-          price: "¥900~1,300",
-          mapsUrl: "https://maps.google.com/?q=閻魔軒+登別温泉"
-        },
-        { 
-          icon: "🦀", 
-          name: "카니야 노보리베츠 (かに家 登別)", 
-          desc: "게 요리 전문점! 홋카이도 명물 털게, 대게, 킹크랩을 다양한 조리법으로 즐길 수 있어요. 게 샤브샤브, 게 스키, 구이 등 풀코스도 가능. 특별한 저녁을 원한다면 강추!", 
-          price: "게 코스 ¥5,000~8,000",
-          mapsUrl: "https://maps.google.com/?q=かに家+登別温泉"
-        }
+        { icon: "🥩", name: "호텔 뷔페", desc: "일식·양식 혼합. 홋카이도 우유, 신선한 야채, 해산물", price: "숙박 포함" }
       ],
       alternatives: [
-        { name: "온천시장 (温泉市場)", desc: "저녁 8시까지 영업. 해산물 덮밥과 생맥주로 가볍게 식사하기 좋음" },
-        { name: "호텔 뷔페", desc: "다이이치 타키모토칸 내 뷔페 레스토랑. 편하게 다양한 요리를 즐기고 싶다면 추천" },
-        { name: "편의점 야식", desc: "늦은 시간이면 세이코마트에서 도시락과 맥주. 방에서 편하게 즐기기" }
+        {
+          name: "Boyotei (ぼうよてい)",
+          desc: "호텔 식사 대신 양식이 땡긴다면! 함박스테이크로 유명한 70년 전통 맛집. 도보 10분.",
+          price: "¥1,500~2,500",
+          note: "라스트오더 확인 필수 (보통 19:30~20:00)"
+        }
       ]
     },
     {
-      time: "20:00 - 22:00",
-      place: "휴식 & 야간 온천",
-      icon: "♨️",
-      category: "onsen",
-      categoryLabel: "온천",
+      time: "19:30 - 20:30",
+      place: "일루미네이션 터널 산책",
+      icon: "✨",
+      category: "sightseeing",
+      categoryLabel: "관광",
       transport: { method: "walk", duration: "도보 5분" },
-      desc: "식당에서 호텔 복귀 후 야간 온천욕. 조명이 켜진 밤 온천의 분위기가 또 다른 매력. 35개 탕을 천천히 돌아보세요!"
-    }
-  ],
-  day3: [
-    {
-      time: "06:00 - 07:00",
-      place: "호텔 온천",
-      icon: "♨️",
-      category: "onsen",
-      categoryLabel: "온천",
-      transport: { method: "walk", duration: "호텔 내" },
-      desc: "체크아웃 전 마지막 호텔 온천! 이른 아침 한적한 대욕장에서 여유롭게 온천욕을 즐기세요. 스키 전 근육을 풀어주는 효과도 있어요."
+      desc: "도야호 온천가 일루미네이션 터널. 겨울밤의 로맨틱한 불빛 산책로.",
+      location: {
+        address: "도야호 온천가 일대 (호반 산책로)",
+        hours: "일몰 ~ 22:00"
+      },
+      mapsUrl: "https://maps.google.com/?q=洞爺湖温泉+イルミネーション",
+      tips: [
+        "방한복 필수! (영하 5~10도)",
+        "20:30 전에 호숫가로 이동하면 좋은 자리 확보"
+      ]
     },
     {
-      time: "07:00 - 08:00",
-      place: "조식",
+      time: "20:30 - 20:45",
+      place: "🎆 도야코 온센 겨울 불꽃놀이",
+      icon: "🎇",
+      category: "sightseeing",
+      categoryLabel: "불꽃놀이",
+      transport: { method: "walk", duration: "호숫가" },
+      desc: "★ 하이라이트! 겨울 한정 롱런 불꽃놀이. 약 15분간 도야호 위로 쏘아올리는 불꽃!",
+      image: "images/toya_fireworks.png",
+      location: {
+        address: "도야호 호숫가",
+        hours: "20:30 ~ 20:45 (약 15분)",
+        period: "2월 겨울 기간 매일"
+      },
+      tips: [
+        "★ 2월 7일~10일 매일 20:30 시작!",
+        "호텔 노천탕에서도 볼 수 있음 (원거리)",
+        "호숫가에서 보면 더 가까이 감상 가능",
+        "핫팩과 따뜻한 음료 챙기기"
+      ]
+    },
+    {
+      time: "21:00 - 22:30",
+      place: "호텔 온천 & 휴식",
+      icon: "♨️",
+      category: "onsen",
+      categoryLabel: "온천",
+      desc: "도야호를 바라보는 노천탕에서 하루 마무리. 옥상 노천탕은 22:00까지!",
+      location: {
+        hours: "대욕장 6:00~24:00 / 옥상노천탕 6:00~22:00"
+      },
+      tips: [
+        "옥상 노천탕은 22:00까지만 운영",
+        "타투 있어도 입장 가능 (확인 필요)",
+        "수건은 객실에서 가져가기"
+      ]
+    }
+  ],
+
+  // ========== DAY 2: 드라이브 투어 & 튜빙 ==========
+  day2: [
+    {
+      time: "07:30 - 08:30",
+      place: "호텔 조식",
       icon: "🍳",
       category: "restaurant",
       categoryLabel: "식사",
-      transport: { method: "walk", duration: "호텔 내" },
-      desc: "호텔 조식 뷔페. 오늘 스키를 위해 든든하게 에너지 충전!",
+      desc: "든든하게 조식 뷔페! 홋카이도 우유, 신선한 야채, 다양한 일식·양식.",
+      tips: ["드라이브 코스가 길으니 든든히 먹기", "08:30까지 식사 마치고 출발 준비"]
+    },
+    {
+      time: "08:45 - 09:30",
+      place: "실로 전망대 (サイロ展望台)",
+      icon: "🗻",
+      category: "sightseeing",
+      categoryLabel: "관광",
+      transport: { method: "car", duration: "약 15분" },
+      desc: "도야호 최고의 파노라마 뷰포인트! 맑은 날 나카지마 섬과 요테이산을 한 프레임에.",
+      image: "images/shiro_observatory.png",
+      location: {
+        address: "北海道洞爺湖町成香3-5",
+        phone: "0142-87-2221",
+        mapCode: "321 395 617*74",
+        hours: "8:30~17:00 (11~4월)",
+        admission: "무료",
+        parking: "무료 (50대)"
+      },
+      mapsUrl: "https://maps.google.com/?q=サイロ展望台",
       recommendations: [
-        { icon: "🥚", name: "오믈렛 스테이션", desc: "눈앞에서 만들어주는 신선한 오믈렛. 토핑 선택 가능" },
-        { icon: "🍞", name: "홋카이도 버터 토스트", desc: "홋카이도 우유로 만든 버터와 현지 잼. 진한 풍미가 다릅니다" }
+        { icon: "☕", name: "레스트하우스 카페", desc: "전망대 내 카페에서 따뜻한 음료와 기념품 구경" }
+      ],
+      tips: [
+        "맑은 날 아침이 최고의 뷰!",
+        "도야호 + 나카지마 섬 + 요테이산 한 프레임 촬영",
+        "기념품샵에서 도야호 굿즈 구매 가능"
       ]
     },
     {
-      time: "08:00 - 10:00",
-      place: "체크아웃 & 준비",
-      icon: "🧳",
-      category: "hotel",
-      categoryLabel: "숙소",
-      transport: { method: "walk", duration: "호텔 내" },
-      desc: "짐 정리 및 10:00 체크아웃. 스키복으로 환복하면 렌탈샵에서 시간 절약! 출발 전 주유소에서 연료 가득 채우기"
+      time: "09:45 - 10:30",
+      place: "레이크힐 팜 (Lake Hill Farm)",
+      icon: "🧀",
+      category: "cafe",
+      categoryLabel: "카페",
+      transport: { method: "car", duration: "약 10~15분" },
+      desc: "요테이산 뷰 목장 카페! 신선한 우유로 만든 젤라또와 소프트아이스크림이 일품.",
+      image: "images/lake_hill_farm.png",
+      location: {
+        address: "北海道洞爺湖町花和127",
+        phone: "0142-83-3376",
+        mapCode: "321 517 177*77",
+        hours: "9:00~17:00 (10~4월)",
+        closed: "연중무휴",
+        parking: "무료"
+      },
+      mapsUrl: "https://maps.google.com/?q=レイクヒルファーム",
+      recommendations: [
+        { icon: "🍦", name: "수제 젤라토", desc: "신선한 우유로 만든 젤라토. 딸기, 밀크, 블루베리 등", price: "¥400~" },
+        { icon: "🥛", name: "갓 짜낸 우유", desc: "농장에서 바로 짜낸 신선한 우유", price: "¥300~" }
+      ],
+      tips: [
+        "창가 자리에서 요테이산 뷰 감상",
+        "체험 프로그램 (버터/젤라토 만들기) 사전 예약 필요",
+        "10:30까지 마치고 다음 목적지로"
+      ]
     },
     {
-      time: "10:00 - 11:40",
-      place: "루스츠 이동",
+      time: "10:30 - 11:00",
+      place: "츠바야마 포인트 (椿山ポイント)",
+      icon: "📸",
+      category: "sightseeing",
+      categoryLabel: "포토스팟",
+      transport: { method: "car", duration: "국도 230호선 이동 중" },
+      desc: "★ 인생샷 스팟! 일직선 도로와 요테이산이 완벽하게 정렬되는 포토 포인트.",
+      image: "images/tsubayama_point.png",
+      location: {
+        mapCode: "385 707 548*45",
+        note: "국도 230호선 연변, 안전 주차 공간 있음"
+      },
+      mapsUrl: "https://cafe-deck.scenicbyway.jp/deck32",
+      tips: [
+        "도로 한가운데서 촬영 금지! 안전한 갓길에서만",
+        "차량 왕래 주의",
+        "맑은 날 요테이산이 선명하게 보임",
+        "레이크힐 → 루스츠 이동 중 잠깐 정차"
+      ]
+    },
+    {
+      time: "11:15 - 12:15",
+      place: "루스츠 스노우 튜빙 🛷",
+      icon: "🛷",
+      category: "ski",
+      categoryLabel: "액티비티",
+      transport: { method: "car", duration: "츠바야마에서 약 15분" },
+      desc: "★ 겨울 액티비티! 'Samurai Kid's Park'에서 튜브 썰매 타기. 스키 안 타도 신나게 눈 위에서!",
+      image: "images/rusutsu_tubing.png",
+      location: {
+        address: "루스츠 리조트 스노우 액티비티 파크",
+        mapCode: "385 554 772*72",
+        hours: "9:00~16:00"
+      },
+      mapsUrl: "https://rusutsu.com/en/news-and-topics/samurai-kids/",
+      recommendations: [
+        { icon: "🛷", name: "스노우 튜빙", desc: "튜브를 타고 눈 슬로프를 내려오는 액티비티", price: "요금 현장 확인" },
+        { icon: "⛄", name: "눈사람 만들기", desc: "아이들과 함께 눈놀이" }
+      ],
+      tips: [
+        "장갑, 모자, 방한화 필수!",
+        "운영 시간/요금은 시즌별 변동, 출발 전 확인",
+        "스노우 에스컬레이터로 편하게 올라가기"
+      ]
+    },
+    {
+      time: "12:15 - 12:45",
+      place: "마카리 이동",
       icon: "🚗",
       category: "transport",
       categoryLabel: "이동",
-      transport: { method: "car", duration: "약 1시간 40분" },
-      desc: "노보리베츠 → 루스츠 이동. 눈길 운전 주의, 여유 있게 출발"
+      transport: { method: "car", duration: "약 30분" },
+      desc: "루스츠 → 마카리. 요테이산 기슭을 따라 드라이브. 설경 감상!",
+      tips: ["도로 결빙 주의", "요테이산이 점점 가까워지는 느낌"]
     },
     {
-      time: "11:40 - 12:00",
-      place: "Amuse Sports 렌탈",
-      icon: "⛷️",
-      category: "ski",
-      categoryLabel: "스키",
-      desc: "스키/보드, 부츠, 헬멧 장비 픽업. 예약 캡처 화면 보여주면 빠른 진행!",
-      location: { address: "144 Izumikawa, Rusutsu, Abuta District", hours: "리조트에서 차로 5분" },
-      mapsUrl: "https://maps.google.com/?q=Amuse+Sports+Rusutsu"
-    },
-    {
-      time: "12:00 - 13:00",
-      place: "점심식사",
-      icon: "🍜",
-      category: "restaurant",
-      categoryLabel: "식사",
-      transport: { method: "car", duration: "약 5분" },
-      desc: "렌탈샵에서 리조트로 렌터카 이동. 루스츠 리조트 내 레스토랑에서 스키 전 든든한 점심",
-      image: "images/rusutsu_ski_1770163862533.png",
+      time: "12:45 - 13:30",
+      place: "요테이노와키미즈 & 점심",
+      icon: "💧",
+      category: "sightseeing",
+      categoryLabel: "관광/식사",
+      desc: "요테이산 용수가 솟아나는 명수 포인트. 빈 페트병에 물 담아가기! 인근에서 점심.",
+      image: "images/fukidashi_park.png",
+      location: {
+        address: "마카리 마을 내",
+        mapCode: "385 691 450*03",
+        admission: "무료",
+        parking: "무료"
+      },
       recommendations: [
         { 
-          icon: "🍕", 
-          name: "코스타 테라짜 (Costa Terrazza)", 
-          desc: "루스츠 리조트 호텔 북쪽 윙 위치. 정통 이탈리안 레스토랑. 벽돌 오븐에서 구운 나폴리 피자와 홋카이도 식재료 파스타가 시그니처. 분위기도 좋아요.", 
-          price: "¥1,500~2,500",
-          mapsUrl: "https://maps.google.com/?q=Costa+Terrazza+Rusutsu"
+          icon: "🥢", 
+          name: "와키미즈노사토 (두부 공방)", 
+          desc: "명수로 만든 두부와 두부 도넛. 시식 가능!",
+          price: "¥500~1,000"
         },
         { 
-          icon: "🍛", 
-          name: "펍 크리켓 (Pub Cricket)", 
-          desc: "캐주얼 비어 & 그릴. 수프 카레, 루스츠 고원 돼지고기 카레라이스, 돼지고기 덮밥 등 든든한 점심 메뉴. 스키 전 에너지 충전에 딱!", 
-          price: "¥1,000~1,800",
-          mapsUrl: "https://maps.google.com/?q=Pub+Cricket+Rusutsu"
-        },
-        { 
-          icon: "🍜", 
-          name: "푸드코트", 
-          desc: "빠르게 식사하고 싶다면 푸드코트! 라멘, 카레, 우동 등 다양한 메뉴. 가성비 좋음", 
-          price: "¥800~1,200" 
-        },
-        { 
-          icon: "🍣", 
-          name: "벨뷰 해산물 스테이크 (Belle Vue)", 
-          desc: "루스츠 리조트 내 해산물 전문점! 야간 슬로프를 바라보며 식사. 킹크랩, 대게 등 호화로운 해산물 플래터가 일품. 예약 없이 바로 입장 가능!", 
-          price: "¥3,000~6,000",
-          mapsUrl: "https://maps.google.com/?q=Belle+Vue+Rusutsu+Resort"
+          icon: "🍞", 
+          name: "Boulangerie JIN (부랑제리 진)", 
+          desc: "★ 마카리의 전설적 빵집! 빵만 사러 오는 사람 많음. 조기 매진 주의!",
+          price: "¥300~800",
+          note: "점심 전 도착 권장"
         }
       ],
-      alternatives: [
-        { name: "올데이 다이닝 아트리움", desc: "웨스틴 루스츠 리조트 내 레스토랑. 자연 채광 좋은 개방형 공간에서 홋카이도 뷔페" },
-        { name: "카자하나 일식당", desc: "웨스틴 내 전통 일본 요리. 정갈한 정식 메뉴" },
-        { name: "편의점 간식", desc: "시간 절약하려면 편의점에서 주먹밥과 빵 구매 후 바로 스키장으로" }
+      tips: [
+        "★ 빈 페트병 꼭 챙기기! (무료 명수)",
+        "부랑제리 진은 오후에 품절되는 빵 많음",
+        "두부 도넛 꼭 먹어보기"
       ]
     },
     {
-      time: "13:00 - 16:30",
-      place: "루스츠 리조트 스키",
-      icon: "⛷️",
-      category: "ski",
-      categoryLabel: "스키",
-      transport: { method: "walk", duration: "리조트 내" },
-      desc: "리조트 내 도보 이동. 홋카이도 최대급 스키 리조트에서 파우더 스노우 체험! 3개 산, 37개 코스의 광활한 슬로프를 즐기세요.",
-      location: { address: "13 Izumikawa, Rusutsu, Abuta District" },
-      recommendations: [
-        { icon: "🎿", name: "이조라 마운틴", desc: "초중급자 추천! 완만한 경사와 넓은 슬로프. 요테이산 전망도 최고" },
-        { icon: "⛷️", name: "이스트 마운틴", desc: "중상급자 추천. 다양한 지형과 트리런 가능. 파우더 찾는 분들께 인기" },
-        { icon: "📸", name: "요테이산 포토존", desc: "스키장 정상에서 요테이산 배경으로 인생샷! 맑은 날 필수 코스" }
-      ],
-      mapsUrl: "https://rusutsu.com/lift-tickets/"
+      time: "13:30 - 14:30",
+      place: "마카리 온천 (まっかり温泉)",
+      icon: "♨️",
+      category: "onsen",
+      categoryLabel: "온천",
+      desc: "★ 요테이산 정면 뷰 노천탕! 이 여행의 베스트 온천 뷰 중 하나.",
+      image: "images/makkari_onsen.png",
+      location: {
+        address: "真狩村字緑岡174-3",
+        phone: "0136-45-2717",
+        mapCode: "385 691 629*06",
+        hours: "11:00 ~ 21:00",
+        closed: "⚠️ 월요일 휴무 (공휴일인 경우 다음날)",
+        admission: "성인 ¥700, 어린이 ¥300"
+      },
+      mapsUrl: "https://maps.google.com/?q=まっかり温泉",
+      tips: [
+        "★ 월요일 휴무 주의! (Day 3이 월요일)",
+        "Day 2(일요일)에 방문하는 이유!",
+        "노천탕에서 요테이산 직접 조망",
+        "타올은 가져가거나 현장 구매"
+      ]
     },
     {
-      time: "17:00 - 18:30",
-      place: "미도리노카제 리조트 이동",
+      time: "14:30 - 16:00",
+      place: "니세코 뷰 플라자 & 귀가",
+      icon: "🛍️",
+      category: "shopping",
+      categoryLabel: "쇼핑",
+      transport: { method: "car", duration: "마카리 → 니세코 → 도야 약 1시간" },
+      desc: "니세코 뷰 플라자(휴게소)에서 홋카이도 농산물, 특산품 구경 후 호텔 복귀.",
+      recommendations: [
+        { icon: "🎁", name: "니세코 뷰 플라자", desc: "현지 농산물, 과자, 기념품 다양", mapsUrl: "https://maps.google.com/?q=ニセコビュープラザ" },
+        { icon: "☕", name: "The Day (니세코)", desc: "돌아가는 길에 들르기 좋은 스페셜티 커피 카페" }
+      ],
+      tips: [
+        "16:00까지 호텔 복귀 목표",
+        "저녁 식사 전 온천 한번 더 즐기기"
+      ]
+    },
+    {
+      time: "18:00 - 19:30",
+      place: "호텔 석식",
+      icon: "🍽️",
+      category: "restaurant",
+      categoryLabel: "식사",
+      desc: "오늘도 호텔 뷔페 또는 회석 코스로 풍성한 저녁."
+    },
+    {
+      time: "20:30 - 20:45",
+      place: "🎆 불꽃놀이 (2일차)",
+      icon: "🎇",
+      category: "sightseeing",
+      categoryLabel: "불꽃놀이",
+      desc: "오늘도 20:30 불꽃놀이! 어제와 다른 장소에서 보는 것도 추천.",
+      tips: [
+        "호텔 옥상 노천탕에서 보기 (22:00 전)",
+        "또는 호숫가 다른 지점에서 감상"
+      ]
+    },
+    {
+      time: "21:00 - 22:30",
+      place: "온천 & 취침",
+      icon: "♨️",
+      category: "onsen",
+      categoryLabel: "온천",
+      desc: "내일은 스키 데이! 푹 쉬기."
+    }
+  ],
+
+  // ========== DAY 3: 루스츠 스키 데이 ==========
+  day3: [
+    {
+      time: "07:00 - 08:00",
+      place: "호텔 조식 (일찍)",
+      icon: "🍳",
+      category: "restaurant",
+      categoryLabel: "식사",
+      desc: "스키장 일찍 도착하려면 조식도 일찍! 든든하게 먹고 체력 비축.",
+      tips: ["에너지바, 초콜릿 등 간식 챙기기", "스키복으로 갈아입고 출발"]
+    },
+    {
+      time: "08:30 - 09:30",
+      place: "루스츠 이동 & 렌탈",
       icon: "🚗",
       category: "transport",
       categoryLabel: "이동",
       transport: { method: "car", duration: "약 40분" },
-      desc: "루스츠 → 기타유자와 미도리노카제 리조트 이동. 장비 반납 후 바로 출발"
-    },
-    {
-      time: "18:30 - 19:00",
-      place: "미도리노카제 리조트 체크인",
-      icon: "🏨",
-      category: "hotel",
-      categoryLabel: "숙소",
-      transport: { method: "car", duration: "도착" },
-      desc: "기타유자와 도착 및 체크인. 20개의 다양한 노천탕을 보유한 프리미엄 온천 리조트!",
-      location: { address: "300-2 Kitayuzawaonsencho, Date, Hokkaido", hours: "체크인 15:00 / 체크아웃 11:00" },
-      mapsUrl: "https://maps.google.com/?q=Midori+no+Kaze+Resort"
-    },
-    {
-      time: "19:00 - 20:00",
-      place: "석식",
-      icon: "🍽️",
-      category: "restaurant",
-      categoryLabel: "식사",
-      transport: { method: "walk", duration: "호텔 내" },
-      desc: "미도리노카제 리조트 내 레스토랑에서 저녁 뷔페. 스키 후 최고의 보상!",
+      desc: "도야 → 루스츠 리조트 이동. Amuse Sports 등에서 장비 렌탈.",
+      location: {
+        mapCode: "385 554 772*72",
+        parking: "West Mt Station 근처: 무료"
+      },
       recommendations: [
-        { 
-          icon: "🍱", 
-          name: "뷔페 레스토랑 세세라기", 
-          desc: "아시아식~서양식 90가지 이상 요리! 현지 농산물 사용, 오픈 키친에서 라이브 조리. 홋카이도 해산물, 스테이크, 스시 등 다양. 어린이 메뉴도 제공.", 
-          price: "숙박 포함 또는 ¥4,000~" 
+        {
+          icon: "🎿",
+          name: "Amuse Sports (스키 렌탈)",
+          desc: "리조트 외부 렌탈샵. 리조트 내부보다 저렴할 수 있음. 사전 온라인 예약 권장.",
+          price: "1일 풀세트 ¥6,000~8,000",
+          location: "루스츠 리조트 인근"
         },
-        { 
-          icon: "🍶", 
-          name: "모리노카제 사료", 
-          desc: "프리미엄 옵션. 모던 일식 코스 다이닝. 자연과 추상적 테마의 개인실에서 홋카이도 계절 요리를 코스로 제공. 특별한 저녁을 원한다면 추천.", 
-          price: "코스 ¥8,000~" 
-        },
-        { 
-          icon: "🦀", 
-          name: "해산물 라이브 코너 (ビュッフェ)", 
-          desc: "세세라기 뷔페 내 해산물 라이브 코너! 오픈 키친에서 홋카이도 신선한 스시, 사시미, 해산물 구이를 라이브로 즐길 수 있어요. 게, 연어, 성게 등 시즌 해산물을 마음껏!", 
-          price: "뷔페 포함" 
+        {
+          icon: "🎿",
+          name: "리조트 내 렌탈 (North Wing)",
+          desc: "North Wing 1F, 2F에 렌탈샵. 편리하지만 가격 높음.",
+          price: "1일 ¥8,000~10,000"
         }
+      ],
+      tips: [
+        "예약 내역 캡처/프린트 지참",
+        "국제면허증, 신분증 지참",
+        "주말은 일찍 도착 권장 (혼잡)"
       ]
     },
     {
-      time: "20:30 - 22:30",
-      place: "온천 & 휴식",
-      icon: "♨️",
-      category: "onsen",
-      categoryLabel: "온천",
-      transport: { method: "walk", duration: "호텔 내" },
-      desc: "스키로 지친 몸을 20개 노천탕에서 풀어주세요. 숲 속 노천탕, 암반욕 등 다양한 시설. 밤하늘 별 보며 온천욕 최고!"
-    }
-  ],
-  day4: [
-    {
-      time: "07:00 - 08:00",
-      place: "호텔 온천",
-      icon: "♨️",
-      category: "onsen",
-      categoryLabel: "온천",
-      transport: { method: "walk", duration: "호텔 내" },
-      desc: "마지막 호텔 온천! 체크아웃 전 20개 노천탕 중 아직 못 가본 탕을 돌아보세요. 아침 햇살 받으며 여유롭게 온천욕으로 여행 마무리."
-    },
-    {
-      time: "08:00 - 09:00",
-      place: "조식",
-      icon: "🍳",
-      category: "restaurant",
-      categoryLabel: "식사",
-      transport: { method: "walk", duration: "호텔 내" },
-      desc: "호텔 조식 뷔페. 마지막 홋카이도 아침 식사를 여유롭게 즐기세요",
+      time: "10:00 - 12:00",
+      place: "오전 슬로프 라이딩",
+      icon: "⛷️",
+      category: "ski",
+      categoryLabel: "스키",
+      desc: "루스츠의 파우더 스노우를 즐기자! 3개 산(West, East, Isola)을 넘나들며 라이딩.",
+      image: "images/rusutsu_ski.png",
+      location: {
+        address: "ルスツリゾート",
+        mapCode: "385 554 772*72",
+        liftPass: "1일권 성인 ¥6,900 (2024-25 시즌 기준)"
+      },
+      mapsUrl: "https://maps.google.com/?q=Rusutsu+Resort",
       recommendations: [
-        { icon: "🥛", name: "홋카이도 유제품", desc: "우유, 요거트, 치즈 등 꼭 한번 더 맛보세요" },
-        { icon: "🍙", name: "오니기리", desc: "연어, 명란 등 홋카이도 재료 주먹밥. 차에서 먹을 간식으로도 좋아요" }
+        { icon: "🟢", name: "초급 코스 (Green)", desc: "West Mt 하단부 연습 슬로프. 완만한 경사로 초보자도 OK." },
+        { icon: "🔵", name: "중급 코스 (Blue)", desc: "East Mt → Isola 연결 슬로프. 경치 좋고 적당한 난이도." },
+        { icon: "⚫", name: "상급 코스 (Black)", desc: "Mt. Isola 정상에서 Heavenly Canyon. 파우더 천국!" }
+      ],
+      tips: [
+        "리프트권은 렌탈 시 같이 구매하면 편리",
+        "오전에 컨디션 좋은 코스 먼저 공략",
+        "중간중간 휴식하며 체력 관리"
       ]
-    },
-    {
-      time: "09:00 - 11:00",
-      place: "휴식 & 체크아웃",
-      icon: "🧳",
-      category: "hotel",
-      categoryLabel: "숙소",
-      transport: { method: "walk", duration: "호텔 내" },
-      desc: "짐 정리 및 11:00 체크아웃. 여유롭게 준비하세요"
-    },
-    {
-      time: "11:00 - 12:00",
-      place: "공항 방면 이동",
-      icon: "🚗",
-      category: "transport",
-      categoryLabel: "이동",
-      transport: { method: "car", duration: "약 1시간" },
-      desc: "미도리노카제 → 치토세 방면 이동. 점심 식사를 위해 치토세 시내에서 잠시 정차"
     },
     {
       time: "12:00 - 13:00",
-      place: "점심식사",
-      icon: "🍜",
+      place: "리조트 내 점심",
+      icon: "🍽️",
       category: "restaurant",
       categoryLabel: "식사",
-      transport: { method: "car", duration: "도착" },
-      desc: "치토세 시내에 렌터카로 도착. 공항 가는 길, 치토세 시내에서 마지막 홋카이도 식사! 공항보다 여유롭고 현지 맛집을 즐길 수 있어요.",
+      desc: "슬로프 중간에서 따뜻한 점심. 카레, 라멘, 덮밥 등 다양한 메뉴.",
       recommendations: [
-        { 
-          icon: "🍛", 
-          name: "스프카레 라비 (Soup Curry Lavi)", 
-          desc: "홋카이도 명물 스프카레 전문점! 진한 풍미의 카레 국물에 큼직한 야채와 치킨이 들어간 시그니처 메뉴. 맵기 조절 가능, 토핑 추가 가능. 신치토세 공항에도 지점이 있지만 여유롭게 먹으려면 치토세 시내가 좋아요.", 
-          price: "¥1,200~1,800",
-          mapsUrl: "https://maps.google.com/?q=Soup+Curry+Lavi+千歳"
-        },
-        { 
-          icon: "🍖", 
-          name: "부타동 메이진 (豚丼名人)", 
-          desc: "홋카이도 토카치 명물 부타동(돼지고기 덮밥) 전문점! 양념 간장을 여러 번 발라 숯불에 구운 돼지고기의 불맛이 일품. 달콤짭짤한 양념과 밥의 조화가 완벽. 든든하게 먹고 공항가기 딱!", 
-          price: "¥900~1,400",
-          mapsUrl: "https://maps.google.com/?q=豚丼名人+千歳"
-        },
-        { 
-          icon: "🍜", 
-          name: "멘야 레이 (麺屋 零)", 
-          desc: "미슐랭 가이드 홋카이도 2017 빕 구르망 수상! 돼지뼈, 닭뼈, 해산물을 블렌딩한 진한 육수의 간장 라멘이 시그니처. 로컬 맛집 분위기에서 정통 홋카이도 라멘을 마지막으로 맛보세요.", 
-          price: "¥850~1,100",
-          mapsUrl: "https://maps.google.com/?q=麺屋零+千歳"
-        },
-        { 
-          icon: "🍣", 
-          name: "스시도코로 키타노하나 (鮨処 きたのはな)", 
-          desc: "치토세 최고의 스시집! 공항과 가까워 전국 각지에서 항공으로 공수한 신선한 식재료로 만드는 제철 스시. 점심 코스가 가성비 좋고, 카운터석에서 장인의 손놀림을 감상할 수 있어요.", 
-          price: "런치세트 ¥2,000~3,500",
-          mapsUrl: "https://maps.google.com/?q=鮨処+きたのはな+千歳"
-        }
+        { icon: "🍛", name: "Cafeteria Steamboat", desc: "North Wing 2F. 카레, 우동, 덮밥 등", price: "¥1,000~1,500" },
+        { icon: "🍜", name: "Izumiya", desc: "South Wing 1F. 라멘, 소바", price: "¥1,000~1,500" },
+        { icon: "🍔", name: "Westin Deli", desc: "South Wing 1F. 주먹밥, 샌드위치 테이크아웃", price: "¥500~1,000" }
       ],
-      alternatives: [
-        { name: "도레모 르타오 (Doremo LeTAO)", desc: "르타오 본점 카페. 유명한 치즈케이크 외에도 팬케이크, 오믈렛, 파스타 등 식사 메뉴도 있음" },
-        { name: "살몬파크 치토세", desc: "미치노에키(도로휴게소)에 위치. 부타동 톤스케, 피자도 등 여러 음식점 입점" },
-        { name: "공항에서 식사", desc: "시간이 촉박하면 공항 도착 후 식사. 라멘도장, 스프카레 등 선택 다양" }
+      tips: ["12시~13시는 혼잡. 11:30 또는 13:30 추천", "오후 체력을 위해 탄수화물 충분히"]
+    },
+    {
+      time: "13:00 - 15:30",
+      place: "오후 라이딩",
+      icon: "⛷️",
+      category: "ski",
+      categoryLabel: "스키",
+      desc: "오후에는 Mt. Isola 쪽을 탐험! 비교적 한적하고 뷰가 좋음.",
+      tips: [
+        "15:00 이후 리프트 마감 시간 확인",
+        "체력 고려해서 무리하지 않기",
+        "마지막 라이딩 후 장비 반납"
       ]
     },
     {
-      time: "13:00 - 14:00",
-      place: "공항 이동 & 렌터카 반납",
+      time: "15:30 - 16:00",
+      place: "장비 반납 & 귀가",
       icon: "🚗",
       category: "transport",
       categoryLabel: "이동",
-      transport: { method: "car", duration: "약 15분" },
-      desc: "치토세 → 신치토세 공항 이동. Budget 렌터카 반납. 연료 가득 채워서 반납하면 빠른 정산!"
+      transport: { method: "car", duration: "약 40분" },
+      desc: "렌탈 장비 반납 후 도야 코한테이로 복귀.",
+      tips: [
+        "렌탈받은 곳과 동일한 곳에서 반납",
+        "장비 확인 후 반납 완료",
+        "17:00까지 호텔 복귀 목표"
+      ]
     },
     {
-      time: "14:00 - 17:45",
-      place: "출국",
-      icon: "✈️",
+      time: "17:00 - 18:00",
+      place: "휴식 & 온천",
+      icon: "♨️",
+      category: "onsen",
+      categoryLabel: "온천",
+      desc: "스키로 지친 몸을 온천에서 풀기! 근육 회복에 최고.",
+      tips: ["물 많이 마시기 (탈수 주의)", "스트레칭으로 근육 풀기"]
+    },
+    {
+      time: "18:00 - 19:30",
+      place: "호텔 석식",
+      icon: "🍽️",
+      category: "restaurant",
+      categoryLabel: "식사",
+      desc: "스키 후 꿀맛 같은 저녁 식사. 오늘은 특히 맛있게 느껴질 것!"
+    },
+    {
+      time: "20:30 - 20:45",
+      place: "🎆 불꽃놀이 (3일차)",
+      icon: "🎇",
+      category: "sightseeing",
+      categoryLabel: "불꽃놀이",
+      desc: "마지막 밤 불꽃놀이. 내일은 체크아웃이니 오늘 밤을 만끽!",
+      tips: ["오늘이 도야호에서의 마지막 밤!", "사진 많이 찍어두기"]
+    },
+    {
+      time: "21:00 - 22:00",
+      place: "온천 & 취침",
+      icon: "♨️",
+      category: "onsen",
+      categoryLabel: "온천",
+      desc: "마지막 밤 온천. 내일은 시코츠호!"
+    }
+  ],
+
+  // ========== DAY 4: 시코츠호 & 귀국 ==========
+  day4: [
+    {
+      time: "07:30 - 08:30",
+      place: "호텔 조식",
+      icon: "🍳",
+      category: "restaurant",
+      categoryLabel: "식사",
+      desc: "마지막 호텔 조식. 든든히 먹고 출발 준비!"
+    },
+    {
+      time: "08:30 - 10:00",
+      place: "마지막 온천 & 체크아웃 준비",
+      icon: "♨️",
+      category: "hotel",
+      categoryLabel: "숙소",
+      transport: { method: "walk", duration: "호텔 내" },
+      desc: "조식 후 마지막 온천욕! 대욕장은 체크아웃 직전까지 이용 가능.",
+      tips: [
+        "옥상 노천탕 마지막 이용 (08:30~10:00 사이)",
+        "짐 정리하면서 잊은 물건 없는지 확인",
+        "렌터카에 짐 미리 싣기"
+      ]
+    },
+    {
+      time: "10:00",
+      place: "체크아웃",
+      icon: "🧳",
+      category: "hotel",
+      categoryLabel: "숙소",
+      desc: "프론트에서 체크아웃 & 정산. 렌터카에 짐 싣고 출발!",
+      tips: [
+        "와이파이 공유기 반납 확인",
+        "카드키 반납",
+        "주차장에서 안전하게 출발"
+      ]
+    },
+    {
+      time: "10:00 - 12:00",
+      place: "시코츠호 이동",
+      icon: "🚗",
       category: "transport",
       categoryLabel: "이동",
-      transport: { method: "walk", duration: "공항 내" },
-      desc: "출국 수속, 면세점 쇼핑 후 17:45 탑승. 마지막 쇼핑 기회! 시간 여유 있으니 천천히 둘러보세요.",
+      transport: { method: "car", duration: "약 90~120분" },
+      desc: "도야 → 시코츠호 (支笏湖). 겨울 도로 상황에 따라 시간 유동적. 설경 드라이브!",
+      location: {
+        mapCode: "867 063 472*22",
+        distance: "약 100km"
+      },
+      tips: [
+        "오로푸레 고개 경유 (국도 453호선)",
+        "도로 제설 상황에 따라 90~120분",
+        "중간에 휴게소 없으니 출발 전 화장실"
+      ]
+    },
+    {
+      time: "12:00 - 14:00",
+      place: "시코츠호 산책 & 점심",
+      icon: "🌊",
+      category: "sightseeing",
+      categoryLabel: "관광",
+      desc: "시코츠호 블루! 일본에서 가장 투명한 호수 중 하나. 비지터센터, 호숫가 산책, 얼음축제 구경.",
+      image: "images/shikotsu_lake_winter.png",
+      location: {
+        address: "北海道千歳市支笏湖温泉",
+        mapCode: "867 063 472*22"
+      },
+      mapsUrl: "https://maps.google.com/?q=支笏湖",
       recommendations: [
         { 
-          icon: "🍫", 
-          name: "로이스 초콜릿 (ROYCE')", 
-          desc: "홋카이도 대표 초콜릿! 나마초코(생초콜릿)는 입에서 녹는 식감. 포테토칩 초콜릿, 바통쿠키 등도 인기. 공항 한정 상품도 있어요.", 
-          price: "¥800~2,000",
-          mapsUrl: "https://maps.google.com/?q=ROYCE+新千歳空港"
+          icon: "🏛️", 
+          name: "시코츠호 비지터센터", 
+          desc: "호수와 자연에 대한 전시. 겨울 영업 9:30~16:30",
+          admission: "무료"
         },
         { 
-          icon: "🧈", 
-          name: "르타오 치즈케이크 (LeTAO)", 
-          desc: "신치토세 공항 인기 1위 디저트! 더블 프로마쥬 치즈케이크는 위아래 다른 식감이 특징. 냉동 상태로 판매해 한국까지 신선하게 가져갈 수 있어요.", 
-          price: "¥1,800~",
-          mapsUrl: "https://maps.google.com/?q=LeTAO+新千歳空港"
+          icon: "🧊", 
+          name: "효토마츠리 (氷濤まつり) ★", 
+          desc: "1월말~2월 개최. 호수 물을 얼려 만든 거대한 얼음 조각! 야간 라이트업 환상적.",
+          price: "입장료 확인 필요",
+          mapsUrl: "https://hyoutou-special.asia/"
         },
-        { icon: "🦀", name: "게 과자 (かに太郎)", desc: "게살이 들어간 센베이. 바삭한 식감과 진한 게 풍미. 선물용으로 인기", price: "¥600~1,200" }
+        { 
+          icon: "🐟", 
+          name: "히메마스 요리 (ヒメマス)", 
+          desc: "시코츠호 특산물 각시송어. 회, 소금구이, 튀김 등으로 즐기기!",
+          price: "¥1,500~2,500"
+        },
+        {
+          icon: "🍽️",
+          name: "미즈노우타 런치 뷔페",
+          desc: "호텔 츠루가 리조트 스파의 헬시 뷔페. 사전 예약 권장!",
+          price: "런치 ¥2,500~3,500",
+          note: "⚠️ '입욕만'은 불가, 런치+입욕 세트만 가능"
+        }
+      ],
+      tips: [
+        "호숫가 산책로에서 '시코츠호 블루' 촬영",
+        "효토마츠리는 낮에도 예쁘지만 야간 라이트업이 더 감동적",
+        "점심은 히메마스 요리 또는 미즈노우타 뷔페 추천"
+      ]
+    },
+    {
+      time: "14:00 - 15:30",
+      place: "당일치기 온천",
+      icon: "♨️",
+      category: "onsen",
+      categoryLabel: "온천",
+      desc: "공항 가기 전 마지막 온천! 미끌미끌한 미인탕으로 여행 마무리.",
+      recommendations: [
+        { 
+          icon: "♨️", 
+          name: "미즈노우타 (水の歌) ★", 
+          desc: "고급스러운 온천 리조트. 런치+입욕 세트로 이용.",
+          price: "런치+입욕 ¥4,000~5,000",
+          note: "⚠️ 입욕만 불가, 세트만 허용"
+        },
+        { 
+          icon: "♨️", 
+          name: "마루코마 온천 (丸駒温泉)", 
+          desc: "★ 수면과 눈높이가 같은 비탕! 호수에 들어간 듯한 착각.",
+          price: "당일치기 ¥1,000~1,500",
+          note: "차로 15분 이동",
+          mapsUrl: "https://www.marukoma.co.jp/"
+        },
+        { 
+          icon: "♨️", 
+          name: "큐카무라 (休暇村)", 
+          desc: "가성비 좋은 당일치기 온천. 접근성 좋음.",
+          price: "당일치기 ¥800~1,000",
+          mapsUrl: "https://www.qkamura.or.jp/shikotsu/"
+        }
+      ],
+      tips: [
+        "선택 1: 미즈노우타 (고급) - 런치+입욕 세트",
+        "선택 2: 마루코마 (비탕 체험) - 시간 여유 필요",
+        "선택 3: 큐카무라 (가성비) - 빠른 이용"
+      ]
+    },
+    {
+      time: "15:30 - 16:30",
+      place: "상점 & 디저트",
+      icon: "🍰",
+      category: "cafe",
+      categoryLabel: "카페",
+      desc: "온천 후 달달한 마무리! 기념품 구매 & 디저트 타임.",
+      recommendations: [
+        { icon: "🎁", name: "미즈노오토 (水の音)", desc: "시코츠호 기념품/잡화 샵" },
+        { icon: "🍰", name: "파티시에 라보", desc: "슈크림, 롤케이크 등 디저트 맛집!" },
+        { icon: "🍦", name: "메메루", desc: "테이크아웃 젤라토, 간편식" }
+      ],
+      tips: [
+        "16:30까지 시코츠호 출발",
+        "공항까지 약 40분 소요"
+      ]
+    },
+    {
+      time: "16:30 - 17:00",
+      place: "공항 이동 & 주유",
+      icon: "🚗",
+      category: "transport",
+      categoryLabel: "이동",
+      transport: { method: "car", duration: "약 40분" },
+      desc: "시코츠호 → 신치토세공항. 반납 전 주유 필수! 공항 인근 주유소 이용.",
+      location: {
+        mapCode: "113 846 573*17"
+      },
+      tips: [
+        "★ 반납 전 주유 필수! (만땅 반납 조건)",
+        "공항 인근 ENEOS, Shell 등 이용",
+        "17:00까지 렌터카 센터 도착 목표"
+      ]
+    },
+    {
+      time: "17:00 - 17:15",
+      place: "렌터카 반납",
+      icon: "🚗",
+      category: "transport",
+      categoryLabel: "반납",
+      desc: "주유 영수증 지참하고 렌터카 센터에서 반납. 셔틀버스로 공항 이동.",
+      tips: [
+        "[ ] 만땅 주유 확인",
+        "[ ] 차량 외관 확인",
+        "[ ] 개인 짐 확인 (좌석 아래, 트렁크)",
+        "[ ] ETC 카드, 네비 SD 카드 등 회수"
+      ]
+    },
+    {
+      time: "17:15 - 17:45",
+      place: "출국 수속",
+      icon: "✈️",
+      category: "transport",
+      categoryLabel: "귀국",
+      desc: "셔틀로 공항 터미널 이동. 체크인 카운터에서 수속.",
+      tips: [
+        "국제선 체크인 마감 보통 출발 1시간 전",
+        "17:45 출발이면 16:45까지 체크인 권장"
+      ]
+    },
+    {
+      time: "17:45 전",
+      place: "마지막 쇼핑 (시간 있으면)",
+      icon: "🛒",
+      category: "shopping",
+      categoryLabel: "쇼핑",
+      desc: "시간 여유 있으면 면세점에서 마지막 쇼핑!",
+      recommendations: [
+        { icon: "🍫", name: "Royce' 생초콜릿", desc: "홋카이도 대표 초콜릿. 생초콜릿이 가장 인기!" },
+        { icon: "🍪", name: "시로이 코이비토 (白い恋人)", desc: "홋카이도 클래식 기념품 쿠키" },
+        { icon: "🍬", name: "육화정 (六花亭)", desc: "마루세이 버터샌드 등 홋카이도 과자" },
+        { icon: "🧀", name: "LeTAO 더블 프로마쥬", desc: "치즈케이크의 명가" }
+      ]
+    },
+    {
+      time: "17:45",
+      place: "출국 ✈️",
+      icon: "✈️",
+      category: "transport",
+      categoryLabel: "귀국",
+      desc: "안녕 홋카이도! 다음에 또 올게요~ 즐거운 여행 되셨길 바랍니다!"
+    }
+  ],
+
+  // ========== 공항 근처 추가 옵션 ==========
+  airportOptions: [
+    {
+      name: "사케의고향 치토세 수족관 (サケのふるさと 千歳水族館)",
+      desc: "연어의 생태를 볼 수 있는 수족관. 아이와 함께라면 추천! 공항에서 차로 10분.",
+      location: {
+        address: "北海道千歳市花園2-312",
+        mapCode: "113 819 752*33",
+        hours: "9:00~17:00 (겨울)"
+      },
+      admission: "성인 ¥800, 어린이 ¥400",
+      mapsUrl: "https://chitose-aq.jp/"
+    },
+    {
+      name: "도레노모리 (道の駅 サーモンパーク千歳)",
+      desc: "공항 가기 전 마지막 휴게소 & 쇼핑. 홋카이도 농산물, 기념품.",
+      location: {
+        address: "千歳市花園2-4-2",
+        hours: "9:00~18:00"
+      }
+    }
+  ],
+
+  // ========== 겨울 운전 팁 ==========
+  drivingTips: [
+    {
+      icon: "⛽",
+      title: "주유 타이밍",
+      tips: [
+        "출발 전 연료 상태 항상 확인",
+        "도야호 주변: ENEOS 도야코점 (MapCode: 321 518 482*17)",
+        "루스츠 방면: 향응 GS 루스츠점",
+        "반납 전: 공항 인근 주유소 필수 (만땅 반납)"
+      ]
+    },
+    {
+      icon: "🌨️",
+      title: "눈길 운전",
+      tips: [
+        "급브레이크, 급출발, 급핸들 절대 금지!",
+        "차간거리 평소의 2배 이상",
+        "터널 출입구 빙판 주의 (가장 위험)",
+        "커브 전 미리 감속, 제동거리 2~5배",
+        "화이트아웃 시 비상등 켜고 서행 또는 정차"
+      ]
+    },
+    {
+      icon: "🚗",
+      title: "차량 점검",
+      tips: [
+        "스터드리스 타이어 장착 확인 (필수!)",
+        "와이퍼 세워서 주차 (눈 무게 방지)",
+        "워셔액(한랭지용) 충분한지 확인",
+        "헤드라이트 조기 점등 (16:00 이후)"
+      ]
+    },
+    {
+      icon: "🆘",
+      title: "비상 상황",
+      tips: [
+        "JAF 긴급 연락: #8139",
+        "렌터카 회사 긴급 연락처 저장",
+        "눈에 갇히면 차내 대기, 엔진 간헐적 가동",
+        "배기구(마후라) 눈으로 막히지 않도록 확인"
       ]
     }
+  ],
+
+  // ========== 긴급 연락처 ==========
+  emergencyContacts: [
+    { name: "경찰", number: "110", desc: "사건/사고 신고" },
+    { name: "소방/구급", number: "119", desc: "화재/응급 상황" },
+    { name: "삿포로 총영사관", number: "+81-11-218-0288", desc: "대한민국 영사 지원 (긴급)" },
+    { name: "JAF", number: "#8139", desc: "일본자동차연맹 긴급지원 (배터리, 잠금, 견인)" },
+    { name: "TOYOTA렌터카", number: "0123-45-8100", desc: "렌터카 관련 문의/긴급상황" },
+    { name: "도야 코한테이", number: "0142-75-2211", desc: "숙소 연락" },
+    { name: "도야코 온센 관광협회", number: "0142-75-2446", desc: "관광 정보/도움" }
+  ],
+
+  // ========== 기념품 쇼핑 가이드 ==========
+  shoppingGuide: [
+    { name: "Royce' 생초콜릿", where: "공항 면세점", price: "약 ¥780~", must: true },
+    { name: "시로이 코이비토", where: "어디서나", price: "약 ¥1,200~", must: true },
+    { name: "육화정 마루세이 버터샌드", where: "공항, 백화점", price: "약 ¥1,000~", must: true },
+    { name: "LeTAO 더블 프로마쥬", where: "공항", price: "약 ¥1,800~", must: false },
+    { name: "홋카이도 우유 과자", where: "어디서나", price: "다양", must: false },
+    { name: "와카사이모 (도야 명물)", where: "도야 온센가", price: "약 ¥800~", must: false },
+    { name: "마리모 키링", where: "도야 기념품샵", price: "약 ¥500~", must: false }
   ]
 };
